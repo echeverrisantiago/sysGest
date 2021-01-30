@@ -27,3 +27,10 @@ border-radius: 2rem;
     .navbar-light .navbar-brand,#navbarDropdown{
         color: white!important;
     }
+
+    .modal{
+        background: #222c;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+    }

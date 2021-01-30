@@ -38,7 +38,7 @@ $(document).ready(function(){
         mainCont = $(this).attr('data-id');
         data['name'] = $('#'+mainCont).find('.taskNameEdit').val();
         data['description'] = $('#'+mainCont).find('.taskDescriptionEdit').val();
-        if($('#'+mainCont).find('.taskStateEdit').val() != 'COMPLETADA'){
+        if($('#'+mainCont).find('.valoresFijos.taskStateFijo').val() != 'COMPLETADA'){
         data['state'] = $('#'+mainCont).find('.taskStateEdit').val();
         }
         data['id'] = $('#'+mainCont).find('.taskIDEdit').val();
@@ -65,11 +65,17 @@ $(document).ready(function(){
 
     });
 
-    $(document).on('click', '.eliminarTarea', function addTask(){
+    $('.eliminarTarea').click(function(){
         id = $(this).attr('data-id');
+
+        $('.modal').addClass('d-flex');
+        $('#confirmDelete').attr('data-confirmdelete',id);
+    });
+
+    $(document).on('click', '#confirmDelete', function addTask(){
+        id = $(this).attr('data-confirmdelete');
         data = {};
         data['id'] = id;
-        alert(data['id']);
         $.ajax({
             type: 'DELETE',
             url: baseUrl+'/taskDelete/'+id,
@@ -83,7 +89,6 @@ $(document).ready(function(){
                 window.location.replace(baseUrl+'/home')
             },
             error: function(res){
-               alert(res.responseText );
             }
         });
 
@@ -95,6 +100,7 @@ $(document).ready(function(){
     });
 
     $('#addNewTask').click(function(){
+        $('#contentTasks').removeClass('d-flex');
         $('#contentTasks').addClass('d-none');
         $('#newTask').removeClass('d-none');
         $('#newTask').addClass('d-flex');
@@ -125,5 +131,41 @@ $(document).ready(function(){
         $('#'+mainContTask).find('.valoresFijos').removeClass('d-none');
         $('#'+mainContTask).find('.valoresEditarButtons').removeClass('d-flex');
     });
-
+    if (window.location.href.indexOf("reporteTareas") > -1) {
+    var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Iniciado', 'En proceso', 'Cancelada', 'Completada'],
+        datasets: [{
+            label: '# de Tareas por estado',
+            data: [Iniciado, Enproceso, Cancelada, Completada],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+    }
 });

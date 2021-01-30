@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tasks = DB::table('tasks')->get()->where('user','=',Auth::user()->id);
+        $tasks = Tasks::get()->where('user','=',Auth::user()->id);
 
         return view('home',compact('tasks',$tasks));
     }
@@ -68,5 +68,16 @@ class HomeController extends Controller
         $tasks->delete();
 
         return $tasks;
+    }
+
+    public function reporteTareas()
+    {
+        $id = Auth::user()->id;
+        $tasksIni =  Tasks::get()->where('user','=',Auth::user()->id)->where('state','=','INICIADO')->count();
+        $tasksCanc =  Tasks::get()->where('user','=',Auth::user()->id)->where('state','=','CANCELADA')->count();
+        $tasksProc=  Tasks::get()->where('user','=',Auth::user()->id)->where('state','=','EN PROCESO')->count();
+        $tasksCom =  Tasks::get()->where('user','=',Auth::user()->id)->where('state','=','COMPLETADA')->count();
+
+        return view('reporteTareas',compact('tasksIni',$tasksIni,'tasksCanc',$tasksCanc,'tasksProc',$tasksProc,'tasksCom',$tasksCom));
     }
 }

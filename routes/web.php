@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/reporteTareas', 'HomeController@reporteTareas')->name('reporteTareas');
+
 Route::post('/taskAdd/{data}', 'HomeController@taskAdd')->name('taskAdd');
 
 Route::post('/taskEdit/{data}', 'HomeController@taskEdit')->name('taskEdit');

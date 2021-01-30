@@ -1,0 +1,29 @@
+.login-btn{
+background: indianred;
+color: white;
+text-decoration: navajowhite;
+font-size: 2rem;
+padding: .5rem 2rem;
+border-radius: 2rem;
+}
+
+.register-btn{
+    background: white;
+    border: 2px solid indianred;
+    color: indianred;
+    text-decoration: navajowhite;
+    font-size: 2rem;
+    padding: .5rem 2rem;
+    border-radius: 2rem;
+    transition: background 1s linear;
+    transition: color .3s ease;
+    }
+
+    .register-btn:hover{
+        background: indianred;
+        color: white;
+    }
+
+    .navbar-light .navbar-brand,#navbarDropdown{
+        color: white!important;
+    }

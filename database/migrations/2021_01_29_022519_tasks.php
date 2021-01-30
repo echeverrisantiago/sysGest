@@ -19,6 +19,8 @@ class Tasks extends Migration
             $table->string('description');
             $table->string('state');
             $table->string('user');
+            $table->date('dateSTART');
+            $table->date('dateEND');
         });
     }
 
